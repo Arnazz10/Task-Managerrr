@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { api } from '../api';
+import { Plus } from 'lucide-react';
 
 const CreateTask = ({ onTaskCreated }) => {
     const [title, setTitle] = useState('');
@@ -15,69 +16,40 @@ const CreateTask = ({ onTaskCreated }) => {
             await api.createTask({ title, description });
             setTitle('');
             setDescription('');
-            onTaskCreated(); // Refresh list
+            onTaskCreated();
         } catch (error) {
             console.error(error);
-            alert('Failed to create task');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div style={{
-            padding: '20px',
-            backgroundColor: '#f8f9fa',
-            borderRadius: '8px',
-            marginBottom: '20px'
-        }}>
-            <h2 style={{ marginTop: 0 }}>Add New Task</h2>
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Task Title (Required)"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                        style={{
-                            width: '100%',
-                            padding: '10px',
-                            border: '1px solid #ccc',
-                            borderRadius: '4px'
-                        }}
-                    />
-                </div>
-                <div>
-                    <textarea
-                        placeholder="Description (Optional)"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        style={{
-                            width: '100%',
-                            padding: '10px',
-                            border: '1px solid #ccc',
-                            borderRadius: '4px',
-                            minHeight: '60px'
-                        }}
-                    />
-                </div>
-                <button
-                    type="submit"
-                    disabled={loading}
-                    style={{
-                        padding: '12px',
-                        backgroundColor: '#007bff',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: loading ? 'wait' : 'pointer',
-                        fontWeight: 'bold'
-                    }}
-                >
-                    {loading ? 'Adding...' : 'Add Task'}
-                </button>
-            </form>
+        <div className="create-section">
+            <div className="input-group">
+                <input
+                    type="text"
+                    placeholder="What needs to be done?"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                />
+                <textarea
+                    placeholder="Add a description (optional) for AI context"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    rows="1"
+                />
+            </div>
+            <button
+                className="btn-primary"
+                onClick={handleSubmit}
+                disabled={loading}
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+            >
+                <Plus size={16} />
+                Add Task
+            </button>
         </div>
     );
 };

@@ -2,23 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../api';
 import TaskItem from '../components/TaskItem';
 import CreateTask from '../components/CreateTask';
+import { LayoutDashboard, ListTodo, BarChart3, Settings, BrainCircuit } from 'lucide-react';
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [stats, setStats] = useState({ total: 0, pending: 0, completed: 0 });
 
     const fetchTasks = async () => {
-        setLoading(true);
         try {
             const data = await api.fetchTasks();
             setTasks(data);
-            setError(null);
+            setStats({
+                total: data.length,
+                pending: data.filter(t => t.status === 'pending').length,
+                completed: data.filter(t => t.status === 'completed').length
+            });
         } catch (err) {
-            setError('Failed to load tasks. ensure backend is running.');
             console.error(err);
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -27,30 +27,73 @@ const TaskList = () => {
     }, []);
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-            <h1 style={{ textAlign: 'center', color: '#333' }}>AI Task Manager</h1>
-
-            <CreateTask onTaskCreated={fetchTasks} />
-
-            {error && <div style={{ color: 'red', padding: '10px', textAlign: 'center' }}>{error}</div>}
-
-            {loading ? (
-                <div style={{ textAlign: 'center' }}>Loading tasks...</div>
-            ) : (
-                <div>
-                    {tasks.length === 0 ? (
-                        <p style={{ textAlign: 'center', color: '#666' }}>No tasks found. Add one above!</p>
-                    ) : (
-                        tasks.map(task => (
-                            <TaskItem
-                                key={task.id}
-                                task={task}
-                                onUpdate={fetchTasks}
-                            />
-                        ))
-                    )}
+        <div className="App">
+            <aside>
+                <div className="brand">
+                    <BrainCircuit size={24} />
+                    TaskAI
                 </div>
-            )}
+                <nav>
+                    <div className="nav-item active">
+                        <LayoutDashboard size={20} />
+                        Dashboard
+                    </div>
+                    <div className="nav-item">
+                        <ListTodo size={20} />
+                        My Tasks
+                    </div>
+                    <div className="nav-item">
+                        <BarChart3 size={20} />
+                        Analytics
+                    </div>
+                    <div className="nav-item">
+                        <Settings size={20} />
+                        Settings
+                    </div>
+                </nav>
+            </aside>
+
+            <main>
+                <header>
+                    <div>
+                        <h1>Dashboard</h1>
+                        <div className="subtitle">Welcome back, User</div>
+                    </div>
+                    <div className="avatar" style={{
+                        width: '40px', height: '40px', borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold'
+                    }}>U</div>
+                </header>
+
+                <div className="stats-grid">
+                    <div className="stat-card">
+                        <div className="stat-label">Total Tasks</div>
+                        <div className="stat-value">{stats.total}</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-label">Pending</div>
+                        <div className="stat-value" style={{ color: 'var(--warning)' }}>{stats.pending}</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-label">Completed</div>
+                        <div className="stat-value" style={{ color: 'var(--success)' }}>{stats.completed}</div>
+                    </div>
+                </div>
+
+                <CreateTask onTaskCreated={fetchTasks} />
+
+                <h2 style={{ marginBottom: '24px' }}>Your Tasks</h2>
+                <div className="task-grid">
+                    {tasks.map(task => (
+                        <TaskItem
+                            key={task.id}
+                            task={task}
+                            onUpdate={fetchTasks}
+                        />
+                    ))}
+                </div>
+            </main>
         </div>
     );
 };

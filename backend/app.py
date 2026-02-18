@@ -1,6 +1,7 @@
 import os
 import logging
-from flask import Flask, jsonify
+import logging.handlers
+from flask import Flask, jsonify, render_template
 from .models import db
 from .schemas import task_schema
 from .routes import tasks_bp
@@ -18,13 +19,33 @@ def create_app():
 
     # Initialize extensions
     db.init_app(app)
+    from flask_compress import Compress
+    Compress(app)
+
+    # Routes
+    @app.route('/')
+    def index():
+        return render_template('index.html')
 
     # Register blueprints
     app.register_blueprint(tasks_bp)
 
     # Setup logging
-    logging.basicConfig(level=logging.INFO)
-    logger = logging.getLogger(__name__)
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
+    
+    file_handler = logging.handlers.RotatingFileHandler('logs/backend.log', maxBytes=10240, backupCount=10)
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+    ))
+    file_handler.setLevel(logging.INFO)
+    
+    app.logger.addHandler(file_handler)
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('AI Task Manager startup')
+    
+    logger = logging.getLogger(__name__) # Keep module logger if used elsewhere
+
 
     # Create tables
     with app.app_context():
@@ -43,4 +64,4 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

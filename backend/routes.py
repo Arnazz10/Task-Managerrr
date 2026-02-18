@@ -28,8 +28,10 @@ def create_task():
         db.session.add(new_task)
         db.session.commit()
         
+        db.session.commit()
+        
         logger.info(f"Task created: {new_task.id}")
-        return task_schema.jsonify(new_task), 201
+        return jsonify(task_schema.dump(new_task)), 201
     except Exception as e:
         logger.error(f"Error creating task: {str(e)}")
         return jsonify({'error': 'Internal server error'}), 500
@@ -38,7 +40,7 @@ def create_task():
 def get_tasks():
     try:
         all_tasks = Task.query.all()
-        return tasks_schema.jsonify(all_tasks), 200
+        return jsonify(tasks_schema.dump(all_tasks)), 200
     except Exception as e:
         logger.error(f"Error fetching tasks: {str(e)}")
         return jsonify({'error': 'Internal server error'}), 500
@@ -65,7 +67,7 @@ def update_task(id):
 
         db.session.commit()
         logger.info(f"Task updated: {id}")
-        return task_schema.jsonify(task), 200
+        return jsonify(task_schema.dump(task)), 200
     except Exception as e:
         logger.error(f"Error updating task {id}: {str(e)}")
         return jsonify({'error': 'Internal server error'}), 500

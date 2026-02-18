@@ -6,3 +6,4 @@ flask-marshmallow
 marshmallow-sqlalchemy
 pytest
 python-dotenv
+flask-compress
