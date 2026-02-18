@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api';
-import TaskItem from '../components/TaskItem';
+import DashboardLayout from '../components/DashboardLayout';
+import StatsCards from '../components/StatsCards';
 import CreateTask from '../components/CreateTask';
-import { LayoutDashboard, ListTodo, BarChart3, Settings, BrainCircuit } from 'lucide-react';
+import TaskCard from '../components/TaskCard';
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
@@ -27,74 +28,28 @@ const TaskList = () => {
     }, []);
 
     return (
-        <div className="App">
-            <aside>
-                <div className="brand">
-                    <BrainCircuit size={24} />
-                    TaskAI
+        <DashboardLayout>
+            <StatsCards stats={stats} />
+            <CreateTask onTaskCreated={fetchTasks} />
+
+            <h2 className="text-lg font-semibold text-white mt-8 mb-4">Your Tasks</h2>
+
+            {tasks.length === 0 ? (
+                <div className="text-center py-12 text-white/30 bg-[#121A2A] rounded-xl border border-white/5">
+                    No tasks found. Create one above to get started.
                 </div>
-                <nav>
-                    <div className="nav-item active">
-                        <LayoutDashboard size={20} />
-                        Dashboard
-                    </div>
-                    <div className="nav-item">
-                        <ListTodo size={20} />
-                        My Tasks
-                    </div>
-                    <div className="nav-item">
-                        <BarChart3 size={20} />
-                        Analytics
-                    </div>
-                    <div className="nav-item">
-                        <Settings size={20} />
-                        Settings
-                    </div>
-                </nav>
-            </aside>
-
-            <main>
-                <header>
-                    <div>
-                        <h1>Dashboard</h1>
-                        <div className="subtitle">Welcome back, User</div>
-                    </div>
-                    <div className="avatar" style={{
-                        width: '40px', height: '40px', borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold'
-                    }}>U</div>
-                </header>
-
-                <div className="stats-grid">
-                    <div className="stat-card">
-                        <div className="stat-label">Total Tasks</div>
-                        <div className="stat-value">{stats.total}</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-label">Pending</div>
-                        <div className="stat-value" style={{ color: 'var(--warning)' }}>{stats.pending}</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-label">Completed</div>
-                        <div className="stat-value" style={{ color: 'var(--success)' }}>{stats.completed}</div>
-                    </div>
-                </div>
-
-                <CreateTask onTaskCreated={fetchTasks} />
-
-                <h2 style={{ marginBottom: '24px' }}>Your Tasks</h2>
-                <div className="task-grid">
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {tasks.map(task => (
-                        <TaskItem
+                        <TaskCard
                             key={task.id}
                             task={task}
                             onUpdate={fetchTasks}
                         />
                     ))}
                 </div>
-            </main>
-        </div>
+            )}
+        </DashboardLayout>
     );
 };
 
