@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow AI - Focused Productivity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['General Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'General Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5 md:px-[120px] md:py-[20px] bg-transparent">
+        <div class="flex items-center gap-[30px]">
+            <div class="text-lg font-medium text-white">
+                TASKFLOW AI
+            </div>
+
+            <div class="hidden md:flex items-center gap-[30px]">
+                <a href="/app"
+                    class="text-sm font-medium text-white opacity-90 hover:opacity-100 transition-opacity">Dashboard</a>
+                <a href="#"
+                    class="text-sm font-medium text-white opacity-90 hover:opacity-100 transition-opacity">Features</a>
+                <a href="#"
+                    class="text-sm font-medium text-white opacity-90 hover:opacity-100 transition-opacity">API</a>
+                <a href="#"
+                    class="text-sm font-medium text-white opacity-90 hover:opacity-100 transition-opacity">Resources</a>
+            </div>
+        </div>
+
+        <button class="hidden md:block rounded-full border border-white p-[0.6px] group">
+            <div
+                class="rounded-full bg-black px-[29px] py-[11px] text-sm font-medium text-white transition-all group-hover:bg-white/10 relative overflow-hidden">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-white blur-[2px]"></div>
+                Join Waitlist
+            </div>
+        </button>
+    </nav>
+
+    <!-- Hero -->
+    <div class="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center">
+        <!-- Video -->
+        <video autoplay loop muted playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
+            <source
+                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260217_030345_246c0224-10a4-422c-b324-070b7c0eceda.mp4"
+                type="video/mp4">
+        </video>
+
+        <!-- Overlay -->
+        <div class="absolute top-0 left-0 w-full h-full bg-black/50 z-10"></div>
+
+        <!-- Content -->
+        <div
+            class="relative z-20 flex flex-col items-center text-center px-4 pt-[200px] md:pt-[280px] pb-[102px] gap-[40px] max-w-4xl mx-auto">
+
+            <!-- Badge -->
+            <div
+                class="rounded-full bg-white/10 border border-white/20 px-4 py-1.5 flex items-center gap-2 backdrop-blur-sm">
+                <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+                <span class="text-xs text-white/60 font-medium">
+                    Early access available <span class="text-white">AI Task Manager</span>
+                </span>
+            </div>
+
+            <!-- Heading -->
+            <h1
+                class="text-[36px] md:text-[56px] font-medium leading-[1.28] tracking-tight max-w-[613px] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60">
+                AI Task Manager for Focused Productivity
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-[15px] text-white/70 max-w-[480px] md:max-w-[680px] leading-relaxed mt-[-16px]">
+                Organize tasks, categorize automatically with AI, and stay focused with a simple and reliable workflow
+                system.
+            </p>
+
+            <!-- CTA -->
+            <button onclick="window.location.href='/app'"
+                class="rounded-full border border-white p-[0.6px] mt-4 group transition-transform hover:scale-105 cursor-pointer">
+                <div
+                    class="rounded-full bg-white px-[29px] py-[11px] text-sm font-medium text-black relative overflow-hidden">
+                    Join Waitlist
+                </div>
+            </button>
+        </div>
+    </div>
+
+</body>
+
+</html>

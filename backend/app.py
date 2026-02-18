@@ -24,7 +24,11 @@ def create_app():
 
     # Routes
     @app.route('/')
-    def index():
+    def landing():
+        return render_template('landing.html')
+
+    @app.route('/app')
+    def dashboard():
         return render_template('index.html')
 
     # Register blueprints
