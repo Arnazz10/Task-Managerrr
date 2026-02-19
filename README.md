@@ -2,7 +2,7 @@
 
 **A Production-Quality, AI-Enhanced Task Management System.**
 
-## 1. Project Overview
+## 1. Project Overview :
 
 The **AI Task Manager** is a full-stack application designed to streamline task organization through intelligent automation. Unlike traditional to-do lists, this application leverages a simulated AI agent to automatically categorize tasks based on their content, reducing cognitive load for the user.
 
