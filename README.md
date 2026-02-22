@@ -11,7 +11,7 @@ Key goals of this project:
 - **Robustness:** Strict input validation, comprehensive error handling, and automated testing.
 - **Simplicity:** A minimalist, distraction-free user interface.
 
-## 2. Technology Stack
+## 2. Technology Stack :
 
 ### Backend (Python)
 - **Framework:** **Flask** (Lightweight, flexible WSGI web application framework).
