@@ -38,7 +38,7 @@ graph LR
 
 - **Frontend:** A Single Page Application (SPA) that consumes the API. It manages local state and handles user interactions.
 - **Backend:** A stateless REST API that exposes resources (`/tasks`) and handles business logic.
-- **Data Layer:** A relational database storing tasks with strict schema enforcement.
+- **Data Layer:** A relational database storing tasks with strict schema enforcement.-
 
 ## 4. Design Decisions
 
