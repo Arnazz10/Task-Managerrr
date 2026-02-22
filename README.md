@@ -1,5 +1,4 @@
-# AI Task Manager
-
+# AI Task Manager :
 **A Production-Quality, AI-Enhanced Task Management System.**
 
 ## 1. Project Overview :
