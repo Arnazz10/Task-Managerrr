@@ -8,7 +8,7 @@ The **AI Task Manager** is a full-stack application designed to streamline task 
 Key goals of this project:
 - **Clean Architecture:** Demonstrating separation of concerns between frontend and backend.
 - **Robustness:** Strict input validation, comprehensive error handling, and automated testing.
-- **Simplicity:** A minimalist, distraction-free user interface
+- **Simplicity:** A minimalist, distraction-free user interface.
 
 ## 2. Technology Stack :
 
